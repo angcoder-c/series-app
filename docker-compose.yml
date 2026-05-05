@@ -11,12 +11,24 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d seriesdb"]
       interval: 5s
       timeout: 5s
       retries: 10
+
+  db-init:
+    image: postgres:16-alpine
+    container_name: series_db_init
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: postgres
+    volumes:
+      - ./db/schema.sql:/schema.sql:ro
+    command: sh -c "psql -h db -U postgres -d seriesdb -v ON_ERROR_STOP=1 -f /schema.sql"
 
   api:
     image: python:3.12-slim
@@ -32,6 +44,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
+      db-init:
+        condition: service_completed_successfully
       db:
         condition: service_healthy
 
