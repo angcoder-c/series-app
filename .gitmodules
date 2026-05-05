@@ -1,0 +1,3 @@
+[submodule "series-api"]
+	path = series-api
+	url = ./series-api
