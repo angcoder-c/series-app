@@ -1,3 +1,3 @@
 [submodule "series-api"]
 	path = series-api
-	url = ./series-api
+	url = https://github.com/angcoder-c/series-api
