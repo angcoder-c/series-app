@@ -8,14 +8,34 @@ function checkAuth() {
 }
 
 function getToken() {
-    return localStorage.getItem('auth_token');
+    const token =
+        localStorage.getItem('auth_token') ||
+        localStorage.getItem('access_token') ||
+        localStorage.getItem('token');
+
+    if (!token) return null;
+
+    const normalized = String(token).replace(/^"|"$/g, '').trim();
+    if (!normalized || normalized === 'undefined' || normalized === 'null') {
+        return null;
+    }
+
+    return normalized;
 }
 
-function getAuthHeaders() {
-    return {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getToken()}`
-    };
+function getAuthHeaders(includeJsonContentType = true) {
+    const token = getToken();
+    const headers = {};
+
+    if (includeJsonContentType) {
+        headers['Content-Type'] = 'application/json';
+    }
+
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return headers;
 }
 
 // State
@@ -104,7 +124,7 @@ async function loadGenres() {
 
 function renderGenreCheckboxes() {
     genresContainer.innerHTML = allGenres.map(genre => `
-        <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+        <label class="genre-option">
             <input type="checkbox" value="${genre.id}" class="genre-checkbox">
             ${genre.name}
         </label>
@@ -216,7 +236,7 @@ async function loadSeriesRating(seriesId) {
     ratingMessage.textContent = '';
     try {
         const response = await fetch(`${API_URL}/ratings/series/${seriesId}`, {
-            headers: getAuthHeaders()
+            headers: getAuthHeaders(false)
         });
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -271,9 +291,7 @@ async function saveRating(event) {
 
 async function uploadImageIfNeeded() {
     const fileInput = document.getElementById('image_file');
-    const manualUrl = document.getElementById('image_url')?.value?.trim();
 
-    if (manualUrl) return { image_url: manualUrl, image_public_id: null };
     if (!fileInput || !fileInput.files || fileInput.files.length === 0) return { image_url: null, image_public_id: null };
 
     const formData = new FormData();
@@ -377,7 +395,7 @@ async function openEditModal(seriesId) {
         document.getElementById('edit-status').value = series.status || 'ongoing';
         document.getElementById('edit-total_seasons').value = series.total_seasons || '';
         document.getElementById('edit-total_episodes').value = series.total_episodes || '';
-        document.getElementById('edit-image_url').value = series.image_url || '';
+        // image_url field removed; keep existing remote image intact unless a new file is uploaded
         document.getElementById('edit-synopsis').value = series.description || series.synopsis || '';
         
         // Store the ID being edited
@@ -405,8 +423,7 @@ async function updateSeries(event) {
         release_year: toOptionalNumber(document.getElementById('edit-release_year').value),
         status: document.getElementById('edit-status').value || null,
         total_seasons: toOptionalNumber(document.getElementById('edit-total_seasons').value),
-        total_episodes: toOptionalNumber(document.getElementById('edit-total_episodes').value),
-        image_url: document.getElementById('edit-image_url').value.trim() || null,
+        total_episodes: toOptionalNumber(document.getElementById('edit-total_episodes').value)
     };
 
     try {
@@ -542,6 +559,8 @@ editModal.addEventListener('click', (e) => {
 // Search
 logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('token');
     window.location.href = 'login.html';
 });
 searchBtn.addEventListener('click', performSearch);

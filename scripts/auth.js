@@ -3,14 +3,22 @@ const API_URL = window.APP_CONFIG?.API_URL || 'http://localhost:8000';
 // Token management
 function setToken(token) {
     localStorage.setItem('auth_token', token);
+    localStorage.setItem('access_token', token);
+    localStorage.setItem('token', token);
 }
 
 function getToken() {
-    return localStorage.getItem('auth_token');
+    return (
+        localStorage.getItem('auth_token') ||
+        localStorage.getItem('access_token') ||
+        localStorage.getItem('token')
+    );
 }
 
 function clearToken() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('token');
 }
 
 function isAuthenticated() {
