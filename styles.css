@@ -1,0 +1,485 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    line-height: 1.6;
+}
+
+header {
+    padding: 4rem 0 2rem;
+    border-bottom: 1px solid #222;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #888;
+}
+
+.logout-btn {
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+    background: #444;
+}
+
+.search-bar {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 1200px;
+    margin: 1.5rem auto 0;
+    padding: 0 2rem;
+}
+
+.search-bar input {
+    flex: 1;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0f0f0f;
+    color: #fff;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.search-bar button {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.search-bar button:hover {
+    opacity: 0.9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.series-form {
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    background: #111;
+}
+
+.series-form h2 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    margin-bottom: 0.75rem;
+}
+
+.series-form input,
+.series-form select,
+.series-form textarea,
+.series-form button {
+    width: 100%;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0f0f0f;
+    color: #fff;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.series-form input[type="file"] {
+    padding: 0.45rem 0.55rem;
+}
+
+.series-form textarea {
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 0.75rem;
+}
+
+.series-form button {
+    cursor: pointer;
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    font-weight: 600;
+}
+
+.series-form button:hover {
+    opacity: 0.9;
+}
+
+.form-message {
+    margin-top: 0.5rem;
+    color: #8f8f8f;
+    min-height: 1.2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.series-card {
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.series-card:hover {
+    transform: translateY(-4px);
+    opacity: 0.9;
+}
+
+.series-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    background: #1a1a1a;
+}
+
+.series-card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: #1a1a1a;
+    border-radius: 12px;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    width: 90%;
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close:hover {
+    color: #888;
+}
+
+.detail-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.detail-body img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #222;
+}
+
+.detail-info h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.detail-info p {
+    color: #aaa;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.detail-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #333;
+}
+
+.detail-meta span {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.detail-meta strong {
+    color: #fff;
+}
+
+.genre-section {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+}
+
+.genre-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.genres-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    min-height: 1.5rem;
+}
+
+.genre-tag {
+    background: #0ea5e9;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.genre-tag button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.genre-create {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.genre-create input {
+    flex: 1;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0f0f0f;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.genre-create button {
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.genre-create button:hover {
+    background: #444;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+}
+
+.detail-actions button {
+    flex: 1;
+    background: #0ea5e9;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.detail-actions button:hover {
+    opacity: 0.9;
+}
+
+.btn-danger {
+    background: #dc2626 !important;
+}
+
+.btn-primary {
+    background: #0ea5e9 !important;
+}
+
+.rating-section {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #333;
+}
+
+.rating-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.rating-header h3 {
+    font-size: 1.05rem;
+}
+
+.rating-summary {
+    display: flex;
+    gap: 1rem;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.rating-form {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.rating-form label {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.rating-form select,
+.rating-form textarea {
+    width: 100%;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0f0f0f;
+    color: #fff;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.rating-form textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.rating-form button {
+    width: 100%;
+    border: none;
+}
+
+.modal-form {
+    max-width: 600px;
+    padding: 2rem;
+}
+
+.modal-form .series-form {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-form .series-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .search-bar {
+        flex-wrap: wrap;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .detail-body {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-info h2 {
+        font-size: 1.5rem;
+    }
+}

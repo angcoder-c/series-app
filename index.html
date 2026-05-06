@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Series App</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <main>
+        <header>
+            <div class="header-top">
+                <div>
+                    <h1>Series</h1>
+                    <p>Descubre tus series favoritas</p>
+                </div>
+                <button id="logout-btn" class="logout-btn">Logout</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Buscar serie...">
+                <button id="search-btn">Buscar</button>
+                <button id="clear-btn">Limpiar</button>
+            </div>
+        </header>
+
+        <section class="container">
+            <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+                <button id="create-btn" style="padding: 0.75rem 2rem; font-size: 1rem; cursor: pointer; background: #0070f3; color: white; border: none; border-radius: 0.5rem;">+ Crear Serie</button>
+            </div>
+
+            <div id="series-grid" class="grid">
+                <div class="loading">Cargando series...</div>
+            </div>
+        </section>
+
+        <!-- Modal para crear serie -->
+        <section id="create-modal" class="modal" style="display: none;">
+            <div class="modal-content modal-form">
+                <button class="close" onclick="document.getElementById('create-modal').style.display='none'">&times;</button>
+                <form id="series-form" class="series-form">
+                    <h2>Crear Serie</h2>
+                    <div class="form-grid">
+                        <input type="text" id="title" name="title" placeholder="Titulo" required>
+                        <input type="number" id="release_year" name="release_year" placeholder="Año">
+                        <select id="status" name="status">
+                            <option value="ongoing">En emision</option>
+                            <option value="ended">Finalizada</option>
+                            <option value="cancelled">Cancelada</option>
+                            <option value="upcoming">Proximamente</option>
+                        </select>
+                        <input type="number" id="total_seasons" name="total_seasons" placeholder="Temporadas">
+                        <input type="number" id="total_episodes" name="total_episodes" placeholder="Episodios">
+                        <input type="url" id="image_url" name="image_url" placeholder="URL de imagen">
+                        <input type="file" id="image_file" name="image_file" accept="image/*">
+                    </div>
+                    <textarea id="synopsis" name="synopsis" placeholder="Sinopsis" rows="3"></textarea>
+                    <div class="genre-section">
+                        <label>Géneros:</label>
+                        <div id="genres-container" class="genres-container"></div>
+                        <div class="genre-create">
+                            <input type="text" id="new-genre" placeholder="Nuevo género">
+                            <button type="button" id="add-genre-btn">Agregar</button>
+                        </div>
+                    </div>
+                    <button type="submit">Crear serie</button>
+                    <p id="form-message" class="form-message"></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Modal para editar serie -->
+        <section id="edit-modal" class="modal" style="display: none;">
+            <div class="modal-content modal-form">
+                <button class="close" onclick="document.getElementById('edit-modal').style.display='none'">&times;</button>
+                <form id="edit-form" class="series-form">
+                    <h2>Editar Serie</h2>
+                    <div class="form-grid">
+                        <input type="text" id="edit-title" name="title" placeholder="Titulo" required>
+                        <input type="number" id="edit-release_year" name="release_year" placeholder="Año">
+                        <select id="edit-status" name="status">
+                            <option value="ongoing">En emision</option>
+                            <option value="ended">Finalizada</option>
+                            <option value="cancelled">Cancelada</option>
+                            <option value="upcoming">Proximamente</option>
+                        </select>
+                        <input type="number" id="edit-total_seasons" name="total_seasons" placeholder="Temporadas">
+                        <input type="number" id="edit-total_episodes" name="total_episodes" placeholder="Episodios">
+                        <input type="url" id="edit-image_url" name="image_url" placeholder="URL de imagen">
+                        <input type="file" id="edit-image_file" name="image_file" accept="image/*">
+                    </div>
+                    <textarea id="edit-synopsis" name="synopsis" placeholder="Sinopsis" rows="3"></textarea>
+                    <button type="submit">Guardar cambios</button>
+                    <p id="edit-message" class="form-message"></p>
+                </form>
+            </div>
+        </section>
+
+        <section id="series-detail" class="modal" style="display: none;">
+            <div class="modal-content">
+                <button class="close">&times;</button>
+                <div class="detail-body">
+                    <img id="detail-image" alt="">
+                    <div class="detail-info">
+                        <h2 id="detail-title"></h2>
+                        <p id="detail-synopsis"></p>
+                        <div class="detail-meta">
+                            <span>Año: <strong id="detail-year"></strong></span>
+                            <span>Estado: <strong id="detail-status"></strong></span>
+                            <span>Temporadas: <strong id="detail-seasons"></strong></span>
+                            <span>Episodios: <strong id="detail-episodes"></strong></span>
+                        </div>
+                        <div class="detail-actions">
+                            <button id="edit-btn" class="btn-primary">Editar</button>
+                            <button id="delete-btn" class="btn-danger">Borrar</button>
+                        </div>
+                        <div class="rating-section">
+                            <div class="rating-header">
+                                <h3>Tu rating</h3>
+                                <div class="rating-summary">
+                                    <span>Promedio: <strong id="rating-average">-</strong></span>
+                                    <span>Votos: <strong id="rating-count">0</strong></span>
+                                </div>
+                            </div>
+                            <form id="rating-form" class="rating-form">
+                                <label for="rating-score">Puntuación</label>
+                                <select id="rating-score" name="score" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5" selected>5</option>
+                                </select>
+                                <label for="rating-comment">Comentario</label>
+                                <textarea id="rating-comment" name="comment" rows="3" placeholder="Deja un comentario opcional"></textarea>
+                                <button type="submit" class="btn-primary">Guardar rating</button>
+                                <p id="rating-message" class="form-message"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

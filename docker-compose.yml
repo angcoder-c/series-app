@@ -38,6 +38,8 @@ services:
     volumes:
       - ./series-api:/app
     command: sh -c "pip install --no-cache-dir -r requirements.txt && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    env_file:
+      - ./series-api/.env
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/seriesdb
       PYTHONUNBUFFERED: "1"

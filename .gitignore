@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv
+
+# FastAPI / Uvicorn
+*.egg-info/
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Node (if needed)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Docker
+postgres_data/
+.docker/
+
+# OS
+Thumbs.db
