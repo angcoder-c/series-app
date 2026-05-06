@@ -52,6 +52,25 @@ header p {
     background: #444;
 }
 
+.create-btn {
+    background: #0070f3;
+    color: #fff;
+}
+
+.create-btn:hover {
+    background: rgba(0,113,243,0.42);
+}
+
+.container-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.is-hidden {
+    display: none;
+}
+
 .search-bar {
     display: flex;
     gap: 0.75rem;
@@ -97,6 +116,9 @@ header p {
     padding: 1rem;
     margin-bottom: 2rem;
     background: #111;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .series-form h2 {
@@ -144,6 +166,74 @@ header p {
 
 .series-form button:hover {
     opacity: 0.9;
+}
+
+/* Global form controls */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+select,
+textarea {
+    width: 100%;
+    border: 1px solid #2b2b2b;
+    border-radius: 8px;
+    background: #0b0b0b;
+    color: #fff;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: box-shadow .12s ease, border-color .12s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
+input[type="url"]::placeholder,
+textarea::placeholder {
+    color: #7a7a7a;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 6px rgba(14,165,233,0.06);
+}
+
+/* File input smaller padding */
+input[type="file"] {
+    padding: 0.45rem 0.55rem;
+    background: #0f0f0f;
+}
+
+/* Buttons inside forms */
+.series-form button, .rating-form button {
+    border-radius: 8px;
+}
+
+/* Checkboxes & radios styling (modern browsers) */
+input[type="checkbox"], input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #0ea5e9;
+    vertical-align: middle;
+}
+
+.genre-option input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Improve small form groups spacing */
+.genre-create input, .genre-create button {
+    border-radius: 8px;
+}
+
+/* Utility: compact form control for inline fields */
+.form-inline {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .form-message {
@@ -305,6 +395,13 @@ header p {
     min-height: 1.5rem;
 }
 
+.genre-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 .genre-tag {
     background: #0ea5e9;
     color: #fff;
@@ -326,7 +423,7 @@ header p {
 }
 
 .genre-create {
-    display: flex;
+    display: grid;
     gap: 0.5rem;
 }
 
@@ -482,4 +579,37 @@ header p {
     .detail-info h2 {
         font-size: 1.5rem;
     }
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    align-items: center;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.75rem;
+}
+
+.logo-img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.create-form-series {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.create-form-series-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }

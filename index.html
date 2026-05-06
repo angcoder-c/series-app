@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Series App</title>
     <link rel="stylesheet" href="./static/styles/styles.css">
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
 </head>
 <body>
     <main>
         <header>
             <div class="header-top">
                 <div>
-                    <h1>Series</h1>
-                    <p>Descubre tus series favoritas</p>
+                    <a href="#" class="logo">
+                        <img src="./static/img/logo.png" alt="Logo" class="logo-img">
+                        <span>Vanilla Series App</span>
+                    </a>
                 </div>
-                <button id="logout-btn" class="logout-btn">Logout</button>
+                <div>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                    <button id="create-btn" class="logout-btn create-btn">+ Crear Serie</button>
+                </div>
             </div>
             <div class="search-bar">
                 <input type="text" id="search-input" placeholder="Buscar serie...">
@@ -24,8 +30,7 @@
         </header>
 
         <section class="container">
-            <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
-                <button id="create-btn" style="padding: 0.75rem 2rem; font-size: 1rem; cursor: pointer; background: #0070f3; color: white; border: none; border-radius: 0.5rem;">+ Crear Serie</button>
+            <div class="container-actions">
             </div>
 
             <div id="series-grid" class="grid">
@@ -38,22 +43,26 @@
             <div class="modal-content modal-form">
                 <button class="close" onclick="document.getElementById('create-modal').style.display='none'">&times;</button>
                 <form id="series-form" class="series-form">
-                    <h2>Crear Serie</h2>
-                    <div class="form-grid">
+                    <h2>Crear nueva serie</h2>
+                    <div class="create-form-series">
                         <input type="text" id="title" name="title" placeholder="Titulo" required>
-                        <input type="number" id="release_year" name="release_year" placeholder="Año">
-                        <select id="status" name="status">
-                            <option value="ongoing">En emision</option>
-                            <option value="ended">Finalizada</option>
-                            <option value="cancelled">Cancelada</option>
-                            <option value="upcoming">Proximamente</option>
-                        </select>
-                        <input type="number" id="total_seasons" name="total_seasons" placeholder="Temporadas">
-                        <input type="number" id="total_episodes" name="total_episodes" placeholder="Episodios">
-                        <input type="url" id="image_url" name="image_url" placeholder="URL de imagen">
+                        <div class="create-form-series-grid">
+                            <input type="number" id="release_year" name="release_year" placeholder="Año">
+                            <select id="status" name="status">
+                                <option value="ongoing">En emision</option>
+                                <option value="ended">Finalizada</option>
+                                <option value="cancelled">Cancelada</option>
+                                <option value="upcoming">Proximamente</option>
+                            </select>
+                        </div>
+                        <div class="create-form-series-grid">
+                            <input type="number" id="total_seasons" name="total_seasons" placeholder="Temporadas">
+                            <input type="number" id="total_episodes" name="total_episodes" placeholder="Episodios">
+                        </div>
                         <input type="file" id="image_file" name="image_file" accept="image/*">
+                        <textarea id="synopsis" name="synopsis" placeholder="Sinopsis" rows="3"></textarea>
                     </div>
-                    <textarea id="synopsis" name="synopsis" placeholder="Sinopsis" rows="3"></textarea>
+
                     <div class="genre-section">
                         <label>Géneros:</label>
                         <div id="genres-container" class="genres-container"></div>
@@ -73,22 +82,25 @@
             <div class="modal-content modal-form">
                 <button class="close" onclick="document.getElementById('edit-modal').style.display='none'">&times;</button>
                 <form id="edit-form" class="series-form">
-                    <h2>Editar Serie</h2>
-                    <div class="form-grid">
+                    <h2>Editar serie</h2>
+                    <div class="create-form-series">
                         <input type="text" id="edit-title" name="title" placeholder="Titulo" required>
-                        <input type="number" id="edit-release_year" name="release_year" placeholder="Año">
-                        <select id="edit-status" name="status">
-                            <option value="ongoing">En emision</option>
-                            <option value="ended">Finalizada</option>
-                            <option value="cancelled">Cancelada</option>
-                            <option value="upcoming">Proximamente</option>
-                        </select>
-                        <input type="number" id="edit-total_seasons" name="total_seasons" placeholder="Temporadas">
-                        <input type="number" id="edit-total_episodes" name="total_episodes" placeholder="Episodios">
-                        <input type="url" id="edit-image_url" name="image_url" placeholder="URL de imagen">
+                        <div class="create-form-series-grid">
+                            <input type="number" id="edit-release_year" name="release_year" placeholder="Año">
+                            <select id="edit-status" name="status">
+                                <option value="ongoing">En emision</option>
+                                <option value="ended">Finalizada</option>
+                                <option value="cancelled">Cancelada</option>
+                                <option value="upcoming">Proximamente</option>
+                            </select>
+                        </div>
+                        <div class="create-form-series-grid">
+                            <input type="number" id="edit-total_seasons" name="total_seasons" placeholder="Temporadas">
+                            <input type="number" id="edit-total_episodes" name="total_episodes" placeholder="Episodios">
+                        </div>
                         <input type="file" id="edit-image_file" name="image_file" accept="image/*">
+                        <textarea id="edit-synopsis" name="synopsis" placeholder="Sinopsis" rows="3"></textarea>
                     </div>
-                    <textarea id="edit-synopsis" name="synopsis" placeholder="Sinopsis" rows="3"></textarea>
                     <button type="submit">Guardar cambios</button>
                     <p id="edit-message" class="form-message"></p>
                 </form>
