@@ -71,6 +71,7 @@ Esto inicia:
 
 ## URLs locales
 
+- **Frontend**: [http://localhost:5173](http://localhost:5173)
 - **API**: [http://localhost:8000](http://localhost:8000)
 - **Swagger Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 - **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
