@@ -1,4 +1,4 @@
-const API_URL = window.APP_CONFIG?.API_URL || 'http://localhost:8000';
+const API_URL = window.APP_CONFIG?.API_URL || 'https://series-api-production.up.railway.app';
 
 // Token management
 function setToken(token) {
